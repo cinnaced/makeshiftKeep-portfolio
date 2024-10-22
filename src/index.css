@@ -1,0 +1,370 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background: #ffffff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header */
+header {
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 63px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensure the header is above the side menu */
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+  color: #7e7e7e; /* Default color */
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.hamburger-icon:hover {
+  color: black; /* Change to black on hover */
+}
+
+/* Header Title */
+header h1 {
+  margin: 0;
+  font-weight: 1000;
+  font-size: 1.5rem;
+  color: #636363;
+  margin-left: 20px; /* Adjust this value for spacing */
+  flex-grow: 1;
+}
+
+.header-container {
+  display: flex; /* Align items horizontally */
+  align-items: center; /* Center vertically */
+  /* padding: 16px; Add padding for the header */
+}
+
+/* Side Menu */
+.side-menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100% - 60px);
+  width: 60px; /* Default collapsed width */
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start; /* Keep icons aligned to the left */
+  padding-top: 20px;
+  transition: width 0.2s ease; /* Smooth width transition */
+  z-index: 999;
+}
+
+.side-menu.expanded {
+  width: 245px; /* Expanded width */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Side Menu Items */
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.side-menu ul li {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  padding-left: 30px; /* Keep the icons aligned left */
+}
+
+.side-menu ul li a {
+  color: #656565;
+  text-decoration: none;
+  display: flex;
+  align-items: center; /* Align icons and text vertically */
+  transition: color 0.2s ease; /* Smooth hover transition */
+}
+
+.side-menu ul li a svg {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.side-menu ul li a span {
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth fade-in/out */
+}
+
+/* Show text when the menu is expanded */
+.side-menu.expanded ul li a span {
+  opacity: 1;
+  visibility: visible;
+}
+
+.side-menu ul li a:hover {
+  color: #222222; /* Highlight color on hover */
+}
+
+/* Footer inside side menu */
+
+.side-menu-footer {
+  /* font-size: small; */
+  width: 100%; /* Ensure full-width footer */
+  color: #656565;
+  margin-top: auto; /* Push footer to the bottom */
+  padding: 30px;
+  text-align: left;
+  line-height: 1.5; /* Adjust the spacing between lines */
+  opacity: 0; /* Start hidden */
+  white-space: nowrap; /* Prevent the footer text from wrapping */
+  /* overflow: hidden; Hide overflow if the text is too wide */
+  text-overflow: ellipsis; /* Optional: Add '...' if text overflows */
+}
+
+.side-menu.expanded .side-menu-footer {
+  opacity: 1; /* Make footer visible */
+  white-space: nowrap; /* Ensure the text remains on one line */
+}
+
+.content-container {
+  padding: 20px;
+  margin-top: 80px;
+  margin-left: 60px; /* Default left margin when menu is collapsed */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  min-height: calc(100vh - 80px); /* Full height minus header */
+  transition: margin-left 0.3s ease;
+}
+
+.side-menu.expanded + .content-container {
+  margin-left: 200px; /* Adjust content margin when expanded */
+}
+
+.create-note {
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  padding: 10px; /* General padding for the note */
+  box-shadow: 0 1.5px 7px rgba(0, 0, 0, 0.4);
+  margin-bottom: 35px;
+}
+
+.create-note input,
+.create-note textarea {
+  width: 100%;
+  border: none;
+  padding: 8px;
+  padding-left: 8px;
+  padding-bottom: 2px;
+  outline: none;
+  font-size: 1.1rem;
+  background-color: white;
+  font-family: "Arial", sans-serif;
+  text-align: left; /* Keep text left-aligned */
+}
+
+.create-note textarea {
+  resize: none;
+}
+
+.notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 100%;
+}
+
+.note {
+  background-color: white;
+  border-radius: 8px;
+  min-width: 240px;
+  max-width: 320px;
+  padding: 16px;
+  box-shadow: 0 0 1px 0.5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease; /* Smooth transition */
+  cursor: pointer; /* Indicate that the note is clickable */
+}
+
+/* Note hover effect */
+.note:hover {
+  box-shadow: 0 1.5px 7px rgba(0, 0, 0, 0.4); /* Glow effect */
+}
+
+.note h1 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.note p {
+  font-size: 1rem;
+  color: #666;
+  text-align: left;
+  white-space: pre-wrap; /* Preserve tabs, spaces, and line breaks */
+  word-wrap: break-word; /* Ensure long words or lines break correctly */
+  margin: 10px 0; /* Add some spacing between paragraphs */
+  font-family: "Arial", sans-serif; /* Optional: make it look more like text input */
+}
+
+.expand-button,
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.expand-button {
+  margin-top: 15px;
+  color: #ff6f00;
+  font-size: 1rem;
+  align-self: flex-start;
+}
+
+.delete-button {
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  color: #999;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Styling for the modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  white-space: pre-wrap; /* Preserve tabs, spaces, and line breaks */
+  word-wrap: break-word; /* Ensure long words or lines break correctly */
+  background-color: white;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 70%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.modal-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #ff6f00;
+  cursor: pointer;
+  padding: 0;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Styling for note images */
+.note-image {
+  width: 100%; /* Make the image fill the width of the container */
+  height: auto; /* Maintain the aspect ratio */
+  object-fit: contain; /* Ensure the image is scaled properly within the container */
+  border-radius: 8px; /* Optional: keep rounded corners */
+  max-height: 300px; /* Optional: limit the height if necessary */
+}
+
+/* Paperclip icon styling */
+input[type="file"] {
+  display: none; /* Hide the default file input */
+}
+
+/* Styling for the paperclip icon */
+label[for="image-upload"] {
+  display: inline-block;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Style for the image preview in CreateArea */
+img {
+  max-width: 100%; /* Ensure the image fits within the width */
+  object-fit: contain; /* Ensure the image doesn't distort */
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.image-preview-container {
+  padding: 10px; /* Padding around the image for even spacing */
+  padding-top: 0px;
+  border-radius: 8px; /* Rounded edges */
+  overflow: hidden; /* Ensure the image stays within the container */
+}
+
+.image-preview-container img {
+  width: 100%; /* Full width of the container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the image fits properly */
+}
